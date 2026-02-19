@@ -1,0 +1,27 @@
+# This rule is not used by the project etcd-backup-operator itself.
+# It is provided to allow the cluster admin to help manage permissions for users.
+#
+# Grants full permissions ('*') over backup.devops.lab.
+# This role is intended for users authorized to modify roles and bindings within the cluster,
+# enabling them to delegate specific permissions to other users or groups as needed.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: etcd-backup-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: etcdbackup-admin-role
+rules:
+- apiGroups:
+  - backup.devops.lab
+  resources:
+  - etcdbackups
+  verbs:
+  - '*'
+- apiGroups:
+  - backup.devops.lab
+  resources:
+  - etcdbackups/status
+  verbs:
+  - get
